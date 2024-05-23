@@ -1,40 +1,36 @@
 'use client'
-import {useForm} from "react-hook-form";
-import {yupResolver} from "@hookform/resolvers/yup";
-import * as yup from "yup";
-import {useState} from "react";
-
-interface IFormInput {
-    name: string;
-    address: string;
-    city: string;
-    state: string;
-    phone: string;
-    zipcode: string;
-}
-
-const schema = yup.object().shape({
-    email: yup.string().email().required(),
-    password: yup.string().required().min(6)
-});
+import {useForm, SubmitHandler} from "react-hook-form";
+import {fillPdf, isEmptyObject} from "@/modules/task1/helper";
+import {IFormInput} from "@/types/app";
 
 export default function FirstTask() {
     const {
         register,
         handleSubmit,
-        watch,
-        formState: {errors},
-    } = useForm<IFormInput>({resolver: yupResolver(schema)});
+        reset,
+        formState: { errors },
+    } = useForm<IFormInput>();
 
-    function woosalSubmit(data) {
-        // handle submitting the form
-        console.log(data);
+    const onSubmit: SubmitHandler<IFormInput> = async (data) => {
+        if (isEmptyObject(errors)) {
+            try {
+                await fillPdf(data)
+            } catch (e) {
+                alert(`Failed: ${e}`);
+            }
+        }
+    }
+
+    const formErrorStyle = (attribute: string) => {
+        if (errors.hasOwnProperty(attribute)) {
+            return 'border border-red-500'
+        }
     }
 
     return (
         <div className="flex min-h-screen p-12">
             <div
-                className="max-xl:hidden max-w-sm bg-white rounded-l-lg  shadow">
+                className="max-xl:hidden max-w-sm bg-white rounded-l-lg shadow">
                     <img className="rounded-l-lg" src="https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt=""/>
                 <div className="p-5">
                     <a href="#">
@@ -44,8 +40,7 @@ export default function FirstTask() {
                 </div>
             </div>
 
-            <form className="rounded-r-md max-xl:rounded-md w-full overflow-hidden shadow p-8 bg-white"
-                  onSubmit={handleSubmit(woosalSubmit)}>
+            <form onSubmit={handleSubmit(onSubmit)} className="rounded-r-md max-xl:rounded-md w-full overflow-hidden shadow p-8 bg-white">
                 <div className="space-y-12">
                     <div className="border-b border-gray-900/10 pb-12">
                         <h2 className="text-2xl font-semibold leading-7 text-gray-900">Submit Offer</h2>
@@ -82,8 +77,8 @@ export default function FirstTask() {
                                                     d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
                                             </svg>
                                         </div>
-                                        <input type="date"
-                                               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5"
+                                        <input {...register("datePrepared", { required: true })}  type="date"
+                                               className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 ${formErrorStyle('datePrepared')}`}
                                                placeholder="Select date"/>
 
                                     </div>
@@ -104,8 +99,8 @@ export default function FirstTask() {
                                        className="block text-sm font-medium leading-6 text-gray-900">First
                                     name</label>
                                 <div className="mt-2">
-                                    <input type="text" name="first-name" id="first-name" autoComplete="given-name"
-                                           className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
+                                    <input {...register("firstName", { required: true })} type="text" name="firstName" id="firstName" autoComplete="given-name"
+                                           className={`p-2 block w-full rounded-md py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 ${formErrorStyle('firstName')}`}/>
                                 </div>
                             </div>
 
@@ -114,8 +109,8 @@ export default function FirstTask() {
                                        className="block text-sm font-medium leading-6 text-gray-900">Last
                                     name</label>
                                 <div className="mt-2">
-                                    <input type="text" name="last-name" id="last-name" autoComplete="family-name"
-                                           className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
+                                    <input {...register("lastName", { required: true })} type="text" name="lastName" id="lastName" autoComplete="family-name"
+                                           className={`p-2 block w-full rounded-md py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 ${formErrorStyle('lastName')}`}/>
                                 </div>
                             </div>
                         </div>
@@ -153,9 +148,9 @@ export default function FirstTask() {
                                        className="block text-sm font-medium leading-6 text-gray-900">Street
                                     address</label>
                                 <div className="mt-2">
-                                    <input type="text" name="street-address" id="street-address"
+                                    <input {...register("streetAddress", { required: true })} type="text" name="streetAddress" id="streetAddress"
                                            autoComplete="street-address"
-                                           className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
+                                           className={`p-2 block w-full rounded-md py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 ${formErrorStyle('streetAddress')}`}/>
                                 </div>
                             </div>
 
@@ -163,8 +158,8 @@ export default function FirstTask() {
                                 <label htmlFor="city"
                                        className="block text-sm font-medium leading-6 text-gray-900">City</label>
                                 <div className="mt-2">
-                                    <input type="text" name="city" id="city" autoComplete="address-level2"
-                                           className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
+                                    <input {...register("city", { required: true })} type="text" name="city" id="city" autoComplete="address-level2"
+                                           className={`p-2 block w-full rounded-md py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 ${formErrorStyle('city')}`}/>
                                 </div>
                             </div>
 
@@ -173,8 +168,8 @@ export default function FirstTask() {
                                        className="block text-sm font-medium leading-6 text-gray-900">State /
                                     Province</label>
                                 <div className="mt-2">
-                                    <input type="text" name="region" id="region" autoComplete="address-level1"
-                                           className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
+                                    <input {...register("county", { required: true })} type="text" name="county" id="county" autoComplete="address-level1"
+                                           className={`p-2 block w-full rounded-md py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 ${formErrorStyle('county')}`}/>
                                 </div>
                             </div>
 
@@ -183,9 +178,9 @@ export default function FirstTask() {
                                        className="block text-sm font-medium leading-6 text-gray-900">ZIP / Postal
                                     code</label>
                                 <div className="mt-2">
-                                    <input type="text" name="postal-code" id="postal-code"
+                                    <input {...register("zipCode", { required: true })} type="text" name="zipCode" id="zipCode"
                                            autoComplete="postal-code"
-                                           className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
+                                           className={`p-2 block w-full rounded-md py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 ${formErrorStyle('zipCode')}`}/>
                                 </div>
                             </div>
                         </div>
@@ -213,8 +208,8 @@ export default function FirstTask() {
                                        className="block text-sm font-medium leading-6 text-gray-900">Purchase
                                     Price</label>
                                 <div className="mt-2">
-                                    <input type="text" name="first-name" id="first-name" autoComplete="given-name"
-                                           className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
+                                    <input {...register("purchasePrice", { required: true })} type="text" name="purchasePrice" id="purchasePrice"
+                                           className={`p-2 block w-full rounded-md py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 ${formErrorStyle('purchasePrice')}`}/>
                                 </div>
                             </div>
                         </div>
@@ -222,7 +217,7 @@ export default function FirstTask() {
                 </div>
 
                 <div className="mt-6 flex items-center justify-end gap-x-6">
-                    <button type="button" className="text-sm font-semibold leading-6 text-gray-900">Cancel</button>
+                    <button type="button" className="text-sm font-semibold leading-6 text-gray-900" onClick={() => reset()}>Cancel</button>
                     <button type="submit"
                             className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Submit
                     </button>
