@@ -16,6 +16,8 @@ function getParamFromURL(
     return urlParams.get(key);
 }
 
+const PAGE_SIZE = 52;
+
 async function requestHandler(_request: Request) {
     if (_request.method !== 'GET') {
         return Response.json({ message: "Only GET method is allowed" });
@@ -46,7 +48,7 @@ async function requestHandler(_request: Request) {
             })
             return Response.json(filteredResults, {status: 200});
         }
-        return Response.json([], {status: 200});
+        return Response.json(results.slice(0, PAGE_SIZE), {status: 200});
     } catch (error: any) {
         return Response.json({ message: 'Error reading CSV file', error: error.message }, { status: 500 });
     }

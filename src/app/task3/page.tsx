@@ -5,7 +5,7 @@ import {ChangeEvent, useEffect, useRef, useState} from "react";
 import {PropertyCard} from "@/modules/task2/components/PropertyCard";
 import {IListing} from "@/types/app";
 
-export default function SecondTask() {
+export default function ThirdTask() {
     const [propertyList, setPropertyList] = useState<Array<IListing>>([]);
     const [searchInput, setSearchInput] = useState('');
     const [isLoading, setIsLoading] = useState(false);
@@ -35,10 +35,6 @@ export default function SecondTask() {
         }
         fetchData(searchInputRef.current);
     }
-
-    useEffect(() => {
-        fetchData('');
-    }, [])
 
     useEffect(() => {
         searchListings();
@@ -71,7 +67,7 @@ export default function SecondTask() {
         <div className="flex min-h-screen p-12 max-md:p-0">
             <div className="max-xl:hidden max-w-sm bg-white rounded-l-lg shadow">
                 <img className="rounded-l-lg"
-                     src="https://images.unsplash.com/photo-1556020685-ae41abfc9365?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                     src="https://images.unsplash.com/photo-1560440021-33f9b867899d?q=80&w=2759&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                      alt=""/>
                 <div className="p-5">
                     <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-700">Competitive market
