@@ -33,9 +33,7 @@ export default function FirstTask() {
                 className="max-xl:hidden max-w-sm bg-white rounded-l-lg shadow">
                     <img className="rounded-l-lg" src="https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt=""/>
                 <div className="p-5">
-                    <a href="#">
-                        <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-700">Let's put together a home offer!</h5>
-                    </a>
+                    <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-700">Let&apos;s put together a home offer!</h5>
                     <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">Please fill the form fields to then download the form.</p>
                 </div>
             </div>
@@ -44,7 +42,7 @@ export default function FirstTask() {
                 <div className="space-y-12">
                     <div className="border-b border-gray-900/10 pb-12">
                         <h2 className="text-2xl font-semibold leading-7 text-gray-900">Submit Offer</h2>
-                        <p className="mt-1 text-sm leading-6 text-gray-600">Let's put together a home offer!</p>
+                        <p className="mt-1 text-sm leading-6 text-gray-600">Let&apos;s put together a home offer!</p>
                         <div className="pt-12">
                             <h2 className="text-base font-semibold leading-7 text-gray-900">Offer Date</h2>
                             <p className="mt-1 text-sm leading-6 text-gray-600">The offer date is the date when you submit
@@ -118,12 +116,12 @@ export default function FirstTask() {
 
                     <div className="border-b border-gray-900/10 pb-12">
                         <h2 className="text-base font-semibold leading-7 text-gray-900">Property Information</h2>
-                        <p className="mt-1 text-sm leading-6 text-gray-600">The seller's address is the address of the
+                        <p className="mt-1 text-sm leading-6 text-gray-600">The seller&apos;s address is the address of the
                             property you are interested in purchasing. It is important to provide the correct and
                             complete address to ensure that your offer is associated with the right property.
                         </p>
                         <p className="mt-1 text-sm leading-6 text-gray-600">
-                            When making an offer, the seller's address helps identify the specific property you are
+                            When making an offer, the seller&apos;s address helps identify the specific property you are
                             targeting. It also allows the seller to confirm that your offer is indeed for their property
                             and not a different one.
                             Make sure to enter the full address, including the street number, street name, unit or
@@ -190,16 +188,16 @@ export default function FirstTask() {
                         <h2 className="text-base font-semibold leading-7 text-gray-900">Purchase Price</h2>
                         <p className="mt-1 text-sm leading-6 text-gray-600">The purchase price is the amount you are
                             offering to pay for the property. It is one of the most important factors in your home
-                            offer, as it directly impacts the seller's decision to accept or reject your offer.</p>
+                            offer, as it directly impacts the seller&apos;s decision to accept or reject your offer.</p>
                         <p className="mt-1 text-sm leading-6 text-gray-600">When determining your purchase price,
                             consider the following:
                             The current market value of the property
                             Recent sales prices of comparable homes in the area
                             The condition of the property and any necessary repairs or upgrades
                             Your budget and financing options
-                            It's essential to strike a balance between making a competitive offer and staying within
+                            It&apos;s essential to strike a balance between making a competitive offer and staying within
                             your budget. A higher purchase price may increase the likelihood of your offer being
-                            accepted, but it's crucial to ensure that you can comfortably afford the monthly mortgage
+                            accepted, but it&apos;s crucial to ensure that you can comfortably afford the monthly mortgage
                             payments and other associated costs of homeownership.</p>
 
                         <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
